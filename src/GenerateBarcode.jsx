@@ -22,7 +22,7 @@ const GenerateBarcode = () => {
             bwipjs.toCanvas(canvas, {
                 bcid: 'code128',
                 text: barcodeValue,
-                scale: 5,
+                scale: 6,
                 height: 10,
                 includetext: true,
                 textxalign: 'center',
@@ -41,7 +41,7 @@ const GenerateBarcode = () => {
 
     const updatePreview = () => {
         const canvas = canvasRef.current;
-        const dataUrl = canvas.toDataURL('image/png');
+        const dataUrl = canvas.toDataURL('image/png',1.0);
         const preview = previewRef.current;
 
         preview.innerHTML = `
@@ -65,7 +65,7 @@ const GenerateBarcode = () => {
 
     const handlePrint = () => {
         const canvas = canvasRef.current;
-        const dataUrl = canvas.toDataURL('image/png');
+        const dataUrl = canvas.toDataURL('image/png',1.0);
         const printWindow = window.open('', '_blank');
         printWindow.document.write(`
             <html>
@@ -113,10 +113,10 @@ const GenerateBarcode = () => {
                         margin-top: ${format === 'Rattail' ? '35px' : '10px'};
                     }
                     .barcode-image {
-                        width: 200px;
+                        ${format === 'Rattail' ? 'width: 350px;' : 'width: 200px;'}
                         height: 100px;
                         ${format === 'Rattail' ? 'margin-left: 40px;' : 'margin-top: 10px;'}
-                        margin-left: ${format === 'Rattail' ? '200px' : '0rem'};
+                        margin-left: ${format === 'Rattail' ? '125px' : '0rem'};
                     }
                 </style>
             </head>

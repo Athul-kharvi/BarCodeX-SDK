@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import bwipjs from 'bwip-js';
 import './GenerateBarcode.css';
 
@@ -8,21 +8,17 @@ const GenerateBarcode = () => {
     const [productPrice, setProductPrice] = useState('');
     const [format, setFormat] = useState('Normal');
     const canvasRef = useRef();
-
-    // Use useEffect to update the barcode when any of the inputs change
-    useEffect(() => {
-        if (barcodeValue.trim()) {
-            generateBarcode();
-        }
-    }, [barcodeValue, productName, productPrice]); // Depend on barcode value, name, and price
+    const previewRef = useRef();
 
     const generateBarcode = () => {
+        console.log("hello  world");
         try {
             const canvas = canvasRef.current;
             const ctx = canvas.getContext('2d');
+            console.log(ctx)
             ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
 
-            // Generate the barcode with bwipjs
+            // Generate barcode using bwip-js
             bwipjs.toCanvas(canvas, {
                 bcid: 'code128',
                 text: barcodeValue,
@@ -34,35 +30,45 @@ const GenerateBarcode = () => {
                 if (err) {
                     console.error('Error generating barcode:', err);
                 } else {
-                    // Draw the product details below the barcode after it is generated
-                    drawProductDetails();
+                    updatePreview();
                 }
             });
-        } catch (e) {
-            console.error('Error generating barcode:', e);
+        } catch (error) {
+            console.error('Error generating barcode:', error);
         }
+        updatePreview();
     };
 
-    const drawProductDetails = () => {
+    const updatePreview = () => {
         const canvas = canvasRef.current;
-        const ctx = canvas.getContext('2d');
-        ctx.font = '16px Arial';
-        ctx.fillStyle = 'black';
-        ctx.textAlign = 'center';
+        const dataUrl = canvas.toDataURL('image/png',1.0);
+        const preview = previewRef.current;
 
-        // Ensure there's space below the barcode before drawing text
-        if (productName && productPrice) {
-            const barcodeHeight = 100; // Adjust as needed based on your barcode size
-            ctx.fillText(productName, canvas.width / 2, barcodeHeight + 20); // Product Name
-            ctx.fillText(`Price: Rs ${productPrice}`, canvas.width / 2, barcodeHeight + 40); // Price
-        }
+        preview.innerHTML = `
+            <div style="display: flex; ${
+                format === 'Rattail' ? 'flex-direction: row;' : 'flex-direction: column;'
+            } align-items: flex-start; padding: 10px; background-color: #eee; border-radius: 8px;">
+                <div style="${
+                    format === 'Rattail' ? 'margin-right: 10px;' : 'margin-bottom: 20px;'
+                } width: ${format === 'Rattail' ? '200px' : '0px'};">
+                    <h2 style="font-size: 30px; font-weight: bold; margin: 0; color: #555">${productName || ''}</h2>
+                    <h3 style="font-size: 25px; color: #555; margin-top: ${
+                        format === 'Rattail' ? '35px' : '10px'
+                    };">Rs ${productPrice || ''}</h3>
+                </div>
+                <img src="${dataUrl}" alt="Barcode" style="width: 200px; height: 100px; ${
+                    format === 'Rattail' ? 'margin-left: 40px;' : 'margin-top: 10px;'
+                }" />
+            </div>
+        `;
     };
 
     const handlePrint = () => {
         const canvas = canvasRef.current;
-        const dataUrl = canvas.toDataURL('image/png', 1.0);
-        const htmlContent = `
-        <html>
+        const dataUrl = canvas.toDataURL('image/png');
+        const printWindow = window.open('', '_blank');
+        printWindow.document.write(`
+            <html>
             <head>
                 <title>Print Barcode - ${format}</title>
                 <style>
@@ -101,7 +107,7 @@ const GenerateBarcode = () => {
                     }
                     .product-price {
                         font-size: 30px;
-                        
+                        color: #555;
                         width: ${format === 'Rattail' ? '300px' : '0px'};
                         margin: 10px 0 0;
                         margin-top: ${format === 'Rattail' ? '35px' : '10px'};
@@ -124,15 +130,9 @@ const GenerateBarcode = () => {
                 </div>
             </body>
         </html>
-        `;
-
-        // Print the content to the console for debugging
-        console.log(htmlContent);
-
-        // Create a new window and print
-        const newWindow = window.open('', '_blank', 'width=600,height=400');
-        newWindow.document.write(htmlContent);
-        newWindow.document.close();
+        `);
+        printWindow.document.close();
+        // printWindow.print();
     };
 
     return (
@@ -188,12 +188,31 @@ const GenerateBarcode = () => {
                         </select>
                     </label>
                 </div>
-                <button type="button" onClick={handlePrint} className="print-button">
-                    Print
-                </button>
             </form>
 
-            <canvas ref={canvasRef} width={300} height={150} style={{ border: '1px solid black' }} />
+            <canvas ref={canvasRef} width={300} height={150} style={{ display: 'none' }} />
+
+            <div
+                ref={previewRef}
+                style={{
+                    marginTop: '20px',
+                    border: '1px solid #ccc',
+                    padding: '10px',
+                    borderRadius: '8px',
+                    backgroundColor: '#f9f9f9',
+                }}
+            >
+                {/* Live preview will be dynamically injected here */}
+            </div>
+
+            <div className="button-group" style={{ marginTop: '20px' }}>
+                <button onClick={generateBarcode} className="generate-button">
+                    Generate Preview
+                </button>
+                <button onClick={handlePrint} className="print-button" style={{ marginLeft: '10px' }}>
+                    Print Barcode
+                </button>
+            </div>
         </div>
     );
 };
