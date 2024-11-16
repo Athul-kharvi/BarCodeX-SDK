@@ -127,7 +127,7 @@ const GenerateBarcode = () => {
                     .product-price {
                         font-size: 30px;
                         color: #555;
-                        width: ${format === 'Rattail' ? '150px' : '200px'};
+                        width: ${format === 'Rattail' ? '150px' : '300px'};
                         margin: 10px 0 0;
                         margin-top: ${format === 'Rattail' ? '35px' : '10px'};
                     }
