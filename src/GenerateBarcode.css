@@ -197,7 +197,7 @@ canvas {
 @media (min-width: 601px) {
     .barcode-container {
         padding: 40px;
-        max-width: 550px;
+        max-width: 700px;
     }
 
     h1 {

@@ -74,7 +74,6 @@ const GenerateBarcode = () => {
                 <style>
                 *{
                     margin-left: 0px;
-                    color: black;
                 }
                     body {
                         margin: 0;
@@ -87,7 +86,6 @@ const GenerateBarcode = () => {
                     }
                     .barcode-container {
                         display: flex;
-                        color: black;
                         ${format === 'Rattail' ? 'flex-direction: row;' : 'flex-direction: column;'}
                         align-items: flex-start;
                         padding: 10px;
@@ -99,19 +97,17 @@ const GenerateBarcode = () => {
                     .product-details {
                         ${format === 'Rattail' ? 'margin-right: 10px;' : 'margin-bottom: 20px;'}
                         width: ${format === 'Rattail' ? '200px' : '0px'};
-                        color: black;
                         font-size: 25px;
                         text-align: left;
                     }
                     .product-name {
-                        color: #353935;	
                         font-size: 30px;
                         font-weight: bold;
                         margin: 0;
                     }
                     .product-price {
                         font-size: 30px;
-                        color: #0000;	
+                        color: #555;
                         width: ${format === 'Rattail' ? '300px' : '0px'};
                         margin: 10px 0 0;
                         margin-top: ${format === 'Rattail' ? '35px' : '10px'};
