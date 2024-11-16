@@ -23,7 +23,7 @@ const GenerateBarcode = () => {
                 bcid: 'code128',
                 text: barcodeValue,
                 scale: 5,
-                height: 10,
+                height: 8,
                 includetext: true,
                 textxalign: 'center',
             }, (err) => {
@@ -51,10 +51,22 @@ const GenerateBarcode = () => {
                 <div style="${
                     format === 'Rattail' ? 'margin-right: 10px;' : 'margin-bottom: 20px;'
                 } width: ${format === 'Rattail' ? '200px' : '0px'};">
-                    <h2 style="font-size: 30px; font-weight: bold; margin: 0; color: #555">${productName || ''}</h2>
+                    <h2 style="font-size: 30px; font-weight: bold; margin: 0; color: #555;
+                    margin-left: ${
+                        format === 'Rattail' ? '0px' : '0px'
+                    };
+                    width: ${
+                        format === 'Rattail' ? '100px' : ''
+                    };
+                    "
+                    >${productName || ''}</h2>
                     <h3 style="font-size: 25px; color: #555; margin-top: ${
-                        format === 'Rattail' ? '35px' : '10px'
-                    };">Rs ${productPrice || ''}</h3>
+                        format === 'Rattail' ? '10px' : '10px'
+                    }; width:   ${
+                        format === 'Rattail' ? '100px' : '100px'
+                    };
+                    
+                    ">Rs ${productPrice || ''}</h3>
                 </div>
                 <img src="${dataUrl}" alt="Barcode" style="width: 200px; height: 100px; ${
                     format === 'Rattail' ? 'margin-left: 40px;' : 'margin-top: 10px;'
@@ -65,7 +77,7 @@ const GenerateBarcode = () => {
 
     const handlePrint = () => {
         const canvas = canvasRef.current;
-        const dataUrl = canvas.toDataURL('image/png');
+        const dataUrl = canvas.toDataURL('image/png',1.0);
         const printWindow = window.open('', '_blank');
         printWindow.document.write(`
             <html>
@@ -77,6 +89,7 @@ const GenerateBarcode = () => {
                 }
                     body {
                         margin: 0;
+                        margin-left: 0;
                         font-family: Arial, sans-serif;
                         display: flex;
                         justify-content: flex-start;
@@ -96,7 +109,8 @@ const GenerateBarcode = () => {
                     }
                     .product-details {
                         ${format === 'Rattail' ? 'margin-right: 10px;' : 'margin-bottom: 20px;'}
-                        width: ${format === 'Rattail' ? '200px' : '0px'};
+                        margin-left; 0px;
+                        width: ${format === 'Rattail' ? '100px' : '0px'};
                         font-size: 25px;
                         text-align: left;
                     }
@@ -104,19 +118,20 @@ const GenerateBarcode = () => {
                         font-size: 30px;
                         font-weight: bold;
                         margin: 0;
+                        ${format === 'Rattail' ? 'width: 400px;' : ''};
                     }
                     .product-price {
                         font-size: 30px;
                         color: #555;
-                        width: ${format === 'Rattail' ? '300px' : '0px'};
+                        width: ${format === 'Rattail' ? '150px' : '200px'};
                         margin: 10px 0 0;
                         margin-top: ${format === 'Rattail' ? '35px' : '10px'};
                     }
                     .barcode-image {
-                        width: 200px;
-                        height: 100px;
-                        ${format === 'Rattail' ? 'margin-left: 40px;' : 'margin-top: 10px;'}
-                        margin-left: ${format === 'Rattail' ? '200px' : '0rem'};
+                        ${format === 'Rattail' ? 'width: 320px;' : 'width: 200px;'}
+                        ${format === 'Rattail' ? 'height: 100px;' : 'height: 100px;'}
+                        ${format === 'Rattail' ? 'margin-left: 0px;' : 'margin-top: 10px;'}
+                        margin-left: ${format === 'Rattail' ? '238px' : '0rem'};
                     }
                 </style>
             </head>
@@ -127,6 +142,7 @@ const GenerateBarcode = () => {
                         <h3 class="product-price">Rs ${productPrice}</h3>
                     </div>
                     <img src="${dataUrl}" alt="Barcode" class="barcode-image" />
+                    <h1 class="barcode-value">${barcodeValue}</h1>
                 </div>
             </body>
         </html>
