@@ -50,7 +50,7 @@ const GenerateBarcode = () => {
             } align-items: flex-start; padding: 10px; background-color: #eee; border-radius: 8px;">
                 <div style="${
                     format === 'Rattail' ? 'margin-right: 10px;' : 'margin-bottom: 20px;'
-                } width: ${format === 'Rattail' ? '200px' : '200px'};">
+                } width: ${format === 'Rattail' ? '200px' : '240px'};">
                     <h2 style="font-size: 20px; font-weight: bold; margin: 0; color: #555;
                     margin-left: ${
                         format === 'Rattail' ? '0px' : '-25px'
