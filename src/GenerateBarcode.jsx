@@ -122,7 +122,7 @@ const GenerateBarcode = () => {
                         font-size: 25px;
                         font-weight: bold;
                         margin: 0;
-                        ${format === 'Rattail' ? 'width: 400px;' : 'width:300px'};
+                        ${format === 'Rattail' ? 'width: 400px;' : 'width:320px'};
                     }
                     .product-price {
                         font-size: 30px;
@@ -132,7 +132,7 @@ const GenerateBarcode = () => {
                         margin-top: ${format === 'Rattail' ? '35px' : '10px'};
                     }
                     .barcode-image {
-                        ${format === 'Rattail' ? 'width: 320px;' : 'width: 200px;'}
+                        ${format === 'Rattail' ? 'width: 320px;' : 'width: 240px;'}
                         ${format === 'Rattail' ? 'height: 100px;' : 'height: 100px;'}
                         ${format === 'Rattail' ? 'margin-left: 0px;' : 'margin-top: 10px;'}
                         margin-left: ${format === 'Rattail' ? '245px' : '5'};
