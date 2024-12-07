@@ -132,7 +132,7 @@ const GenerateBarcode = () => {
                         margin-top: ${format === 'Rattail' ? '35px' : '10px'};
                     }
                     .barcode-image {
-                        ${format === 'Rattail' ? 'width: 320px;' : 'width: 270px;'}
+                        ${format === 'Rattail' ? 'width: 320px;' : 'width: 280px;'}
                         ${format === 'Rattail' ? 'height: 100px;' : 'height: 100px;'}
                         ${format === 'Rattail' ? 'margin-left: 0px;' : 'margin-top: 10px;'}
                         margin-left: ${format === 'Rattail' ? '245px' : '5'};
