@@ -1,5 +1,9 @@
 <<<<<<< HEAD
 # Barcode_printer
+
+Project live On 
+https://barcodex-sdk.netlify.app/
+
 barcode printer for the sri devi kangan store make printing for the barcode easier and feasiable
 =======
 # React + Vite
