@@ -63,7 +63,7 @@ const GenerateBarcode = () => {
                     <h3 style="font-size: 25px; color: #555; margin-top: ${
                         format === 'Rattail' ? '10px' : '10px'
                     }; width:   ${
-                        format === 'Rattail' ? '100px' : '100px'
+                        format === 'Rattail' ? '100px' : '130px'
                     };
                     
                     ">Rs ${productPrice || ''}</h3>
