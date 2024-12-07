@@ -122,12 +122,12 @@ const GenerateBarcode = () => {
                         font-size: 25px;
                         font-weight: bold;
                         margin: 0;
-                        ${format === 'Rattail' ? 'width: 400px;' : 'width:320px'};
+                        ${format === 'Rattail' ? 'width: 400px;' : 'width:340px'};
                     }
                     .product-price {
                         font-size: 30px;
                         color: #555;
-                        width: ${format === 'Rattail' ? '150px' : '300px'};
+                        width: ${format === 'Rattail' ? '150px' : '320px'};
                         margin: 10px 0 0;
                         margin-top: ${format === 'Rattail' ? '35px' : '10px'};
                     }
